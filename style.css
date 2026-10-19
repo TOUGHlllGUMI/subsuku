@@ -1,0 +1,509 @@
+/* ---- 色 ---- */
+:root {
+  color-scheme: light;
+  --bg: #f4f2ee;
+  --text: #1b1b1b;
+  --sub: #6f6b63;
+  --line: #e2ded6;
+  --sheet: #ffffff;
+  --field: #f4f2ee;
+  --danger: #c2410c;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* ---- 全体 ---- */
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.locked { overflow: hidden; }
+
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; padding: 0; }
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(20px + env(safe-area-inset-top)) 16px calc(120px + env(safe-area-inset-bottom));
+}
+
+/* ---- 見出し ---- */
+.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 8px 4px 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.count {
+  margin: 0;
+  color: var(--sub);
+  font-size: 14px;
+}
+
+/* ---- 合計 ---- */
+.total {
+  background: var(--sheet);
+  border-radius: 24px;
+  padding: 22px 22px 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+
+.total-label {
+  margin: 0;
+  color: var(--sub);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.total-month {
+  margin: 2px 0 0;
+  font-size: clamp(40px, 12vw, 56px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.total-year {
+  margin: 4px 0 0;
+  color: var(--sub);
+  font-size: 15px;
+}
+
+.total-year span {
+  color: var(--text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  display: flex;
+  gap: 3px;
+  height: 12px;
+  margin-top: 18px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.bar-seg {
+  flex-basis: 0;
+  min-width: 4px;
+}
+
+.bar-note {
+  margin: 8px 0 0;
+  color: var(--sub);
+  font-size: 12px;
+}
+
+.rate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--sub);
+  font-size: 12px;
+  text-align: left;
+}
+
+.rate-change {
+  flex-shrink: 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---- 何もないとき ---- */
+.empty {
+  text-align: center;
+  padding: 40px 12px;
+}
+
+.empty-main {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.empty-sub {
+  margin: 0;
+  color: var(--sub);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* ---- カード ---- */
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-height: 132px;
+  padding: 16px 16px 14px;
+  border-radius: 20px;
+  text-align: left;
+  color: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s ease;
+}
+
+.card:active { transform: scale(0.97); }
+
+.card:focus-visible,
+.add:focus-visible,
+.swatch:focus-visible,
+.cycle-btn:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* 文字の真後ろに、ぼやける黒い影 */
+.card-name,
+.card-price {
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.55);
+}
+
+.card-share,
+.card-sub {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.55);
+}
+
+.card-name {
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.card-share {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-price {
+  margin-top: auto;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-price small {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.card-sub {
+  margin-top: 3px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- 追加ボタン ---- */
+.add {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 28px 14px 22px;
+  border-radius: 999px;
+  background: var(--text);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.add:active { transform: translateX(-50%) scale(0.96); }
+
+/* ---- シート ---- */
+.sheet-back {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.4);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10;
+  animation: fade 0.15s ease;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: var(--sheet);
+  border-radius: 24px 24px 0 0;
+  padding: 22px 20px calc(20px + env(safe-area-inset-bottom));
+  animation: rise 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .sheet-back { align-items: center; }
+  .sheet { border-radius: 24px; }
+}
+
+@keyframes fade { from { opacity: 0; } }
+@keyframes rise { from { transform: translateY(24px); opacity: 0.6; } }
+
+.sheet-title {
+  margin: 0 0 18px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.field {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--sub);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--field);
+  font-size: 17px;
+  outline: none;
+}
+
+.field input:focus { box-shadow: inset 0 0 0 2px var(--text); }
+
+.price {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  background: var(--field);
+}
+
+.price:focus-within { box-shadow: inset 0 0 0 2px var(--text); }
+
+.yen {
+  padding-left: 14px;
+  color: var(--sub);
+  font-size: 17px;
+}
+
+.price input {
+  padding-left: 6px;
+  background: none;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.price input:focus { box-shadow: none; }
+
+.unit {
+  padding-right: 14px;
+  color: var(--sub);
+  font-size: 17px;
+}
+
+.sheet-text {
+  margin: -8px 0 18px;
+  color: var(--sub);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.toggles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+/* ---- 料金の候補 ---- */
+.presets {
+  margin: -8px 0 18px;
+}
+
+.preset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 212px;
+  overflow-y: auto;
+}
+
+.preset {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  text-align: left;
+}
+
+.preset.on {
+  border-color: var(--text);
+  background: var(--field);
+}
+
+.preset-name {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.preset-price {
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.preset-note {
+  margin: 8px 0 0;
+  color: var(--sub);
+  font-size: 12px;
+}
+
+.field-hint {
+  display: block;
+  min-height: 20px;
+  margin-top: 6px;
+  color: var(--sub);
+  font-size: 13px;
+}
+
+.cycle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--field);
+}
+
+.cycle-btn {
+  padding: 10px;
+  border-radius: 9px;
+  color: var(--sub);
+  font-weight: 500;
+}
+
+.cycle-btn.on {
+  background: var(--sheet);
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(5, 44px);
+  justify-content: space-between;
+  row-gap: 12px;
+}
+
+.swatch {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: relative;
+}
+
+.swatch.on::after {
+  content: "";
+  position: absolute;
+  inset: 30%;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.error {
+  margin: -6px 0 14px;
+  color: var(--danger);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sheet-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.spacer { flex: 1; }
+
+.btn-delete,
+.btn-auto,
+.btn-cancel,
+.btn-save {
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.btn-delete { color: var(--danger); padding-left: 4px; }
+.btn-auto { color: var(--text); padding-left: 4px; }
+.btn-cancel { color: var(--sub); }
+.btn-save { background: var(--text); color: #fff; padding: 12px 26px; }
+
+/* 細い画面ではカードを1列に */
+@media (max-width: 340px) {
+  .cards { grid-template-columns: minmax(0, 1fr); }
+}
